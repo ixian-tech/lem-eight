@@ -1,10 +1,11 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import "./index.css"
-import App from "./App"
+
+import App from "./containers/App"
 import * as serviceWorker from "./serviceWorker"
-import { createStore, applyMiddleware } from "redux"
+import { createStore } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
+import "./index.css"
 
 const initialState = {
     count: 0,
@@ -33,14 +34,6 @@ function reducer(state = initialState, action) {
         default:
             return state
     }
-
-    if (action.type === "INCREMENT") {
-        return {
-            count: state.count + 1
-        }
-    } else if (action.type === "RESET") {
-    }
-    return state
 }
 
 const store = createStore(reducer, composeWithDevTools())
