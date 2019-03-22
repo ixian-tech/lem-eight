@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "dev": "lem-eight",
+    "default": "lem-eight"
+  }
+}
