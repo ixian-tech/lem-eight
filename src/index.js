@@ -5,19 +5,55 @@ import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 import { createStore, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
-import reduxThunk from "redux-thunk"
 
-function reducer(state, action) {
+const initialState = {
+    count: 0,
+    todos: [{ task: "Get work done" }]
+}
+function reducer(state = initialState, action) {
     console.log("reducer", state, action)
+
+    switch (action.type) {
+        case "INCREMENT":
+            return {
+                count: state.count + 1,
+                todos: state.todos
+            }
+        case "DECREMENT":
+            return {
+                count: state.count - 1,
+                todos: state.todos
+            }
+        case "RESET":
+            return {
+                count: 0,
+                todos: state.todos
+            }
+
+        default:
+            return state
+    }
+
+    if (action.type === "INCREMENT") {
+        return {
+            count: state.count + 1
+        }
+    } else if (action.type === "RESET") {
+    }
     return state
 }
 
-const store = createStore(
-    reducer,
-    composeWithDevTools()
-    // applyMiddleware(...reduxThunk)
-    // other store enhancers if any
-)
+const store = createStore(reducer, composeWithDevTools())
+
+console.log(store.getState())
+
+store.dispatch({ type: "INCREMENT" })
+store.dispatch({ type: "INCREMENT" })
+store.dispatch({ type: "INCREMENT" })
+store.dispatch({ type: "INCREMENT" })
+store.dispatch({ type: "DECREMENT" })
+store.dispatch({ type: "INCREMENT" })
+store.dispatch({ type: "DECREMENT" })
 
 ReactDOM.render(<App />, document.getElementById("root"))
 
